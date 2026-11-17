@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Where Is Your Hope? | Gospel Patrons UK (Demo)</title>
+  <!-- Free stand-ins for the US site's fonts (Mabry → DM Sans, Tiempos Text → Source Serif 4) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --heading: #343434;
+      --body: #464545;
+      --muted: #9b9b9b;
+      --band: #5273a3;   /* hero/title band colour – change per article */
+      --blue: #3ba5e2;   /* sign-up button */
+      --rule: #ececec;
+      --sans: "DM Sans", system-ui, sans-serif;
+      --serif: "Source Serif 4", Georgia, serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #fff; color: var(--body); font-family: var(--serif); font-size: 17px; line-height: 1.75; }
+    a { color: inherit; }
+
+    /* Header – sits on top of the hero */
+    .site-header {
+      position: absolute; top: 0; left: 0; right: 0; z-index: 2;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 2rem; font-family: var(--sans); color: #fff;
+    }
+    .logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.95rem; }
+    .logo-mark { width: 30px; height: 34px; border: 2px solid #fff; border-radius: 0 0 14px 14px; } /* placeholder for shield logo */
+    nav a { margin-left: 1.5rem; text-decoration: none; font-size: 0.95rem; opacity: 0.9; }
+    nav a:hover { opacity: 1; }
+
+    /* Hero – to add the illustration, save it as images/hero.jpg (wide, ~2400×840px).
+       Until that file exists, the coloured gradient underneath shows instead.
+       If the important part of the picture gets cropped, change "center" to e.g. "center top". */
+    .hero {
+      height: 420px;
+      background:
+        linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0) 30%),           /* keeps white logo/nav readable */
+        url("images/hero.jpg") center / cover no-repeat,                /* the illustration */
+        radial-gradient(circle at 30% 60%, #6f8fbd 0, transparent 45%), /* fallback if no image */
+        radial-gradient(circle at 75% 40%, #c4a07a 0, transparent 35%),
+        var(--band);
+    }
+
+    /* Title band */
+    .title-band { background: var(--band); color: #fff; text-align: center; padding: 1.5rem 1.5rem 2.5rem; border-top: 1px solid rgba(255,255,255,0.2); }
+    .tags { font-family: var(--sans); font-size: 0.85rem; margin-bottom: 0.75rem; }
+    .tags span { margin: 0 0.75rem; }
+    .tags .dot::before { content: "●"; font-size: 0.6rem; margin-right: 0.4rem; vertical-align: middle; }
+    .tags b { font-weight: 700; margin-right: 0.3rem; }
+    .tags a { text-decoration: underline; }
+    h1 { font-family: var(--sans); font-weight: 500; font-size: 2.25rem; line-height: 1.2; margin: 0 auto; max-width: 760px; letter-spacing: -0.01em; }
+
+    /* Article body with share column */
+    .article-wrap { max-width: 860px; margin: 3rem auto; padding: 0 1.5rem; display: grid; grid-template-columns: 70px 1fr; gap: 2rem; }
+    .share { font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; color: var(--heading); position: sticky; top: 2rem; align-self: start; }
+    .share a { display: block; margin: 0.6rem auto; width: 28px; height: 28px; line-height: 28px; border-radius: 50%; text-decoration: none; font-size: 0.8rem; color: var(--heading); }
+    .share a:hover { background: var(--rule); }
+
+    .author { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+    .avatar { width: 52px; height: 52px; border-radius: 50%; background: #d8d2c8; flex-shrink: 0; }
+    .author p { margin: 0; line-height: 1.4; font-size: 0.95rem; }
+    .author strong { font-family: var(--sans); color: var(--heading); }
+
+    article h2 { font-family: var(--sans); font-weight: 500; color: var(--body); font-size: 1.6rem; margin: 2.5rem 0 0.75rem; letter-spacing: -0.01em; }
+    article h3 { font-family: var(--serif); font-weight: 600; font-style: italic; color: var(--heading); font-size: 1.1rem; margin: 1.75rem 0 0.25rem; }
+    blockquote { margin: 1.5rem 0; padding-left: 1.25rem; border-left: 3px solid var(--band); }
+    article ul { padding-left: 1.25rem; }
+    article li { margin-bottom: 0.4rem; }
+    .stack { padding-left: 1.25rem; }
+
+    /* Related */
+    .related { background: #f2f2f2; padding: 3rem 1.5rem; }
+    .related .inner { max-width: 1000px; margin: 0 auto; }
+    .related h2 { font-family: var(--sans); font-weight: 500; color: var(--heading); margin: 0 0 1.5rem; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+    .card { background: #fff; text-decoration: none; }
+    .card .img { height: 150px; }
+    .card .txt { padding: 1rem 1.25rem 1.25rem; }
+    .card .lbl { font-family: var(--sans); font-size: 0.75rem; color: var(--muted); }
+    .card h3 { font-family: var(--sans); font-weight: 500; color: var(--heading); font-size: 1.15rem; line-height: 1.3; margin: 0.3rem 0 0; }
+
+    /* Newsletter */
+    .newsletter { text-align: center; padding: 3.5rem 1.5rem; }
+    .newsletter h2 { font-family: var(--sans); font-weight: 500; color: var(--heading); font-size: 1.9rem; margin: 0 0 0.5rem; }
+    .newsletter p { margin: 0 0 1.5rem; }
+    .newsletter form { display: flex; max-width: 460px; margin: 0 auto; }
+    .newsletter input { flex: 1; padding: 0.85rem 1rem; font-family: var(--sans); font-size: 0.95rem; border: 1px solid #ccc; border-right: none; }
+    .newsletter button { padding: 0 1.4rem; border: none; background: var(--blue); color: #fff; font-family: var(--sans); font-weight: 500; font-size: 0.95rem; cursor: pointer; }
+    .newsletter .note { font-family: var(--sans); font-size: 0.75rem; color: var(--muted); margin-top: 0.75rem; }
+
+    /* Footer */
+    footer { background: #222; color: #fff; text-align: center; padding: 3rem 1.5rem 2rem; font-family: var(--sans); }
+    footer .tagline { font-family: var(--serif); font-size: 1.35rem; max-width: 560px; margin: 0 auto 1.5rem; line-height: 1.4; }
+    footer .links a { color: #bbb; text-decoration: none; margin: 0 0.75rem; font-size: 0.85rem; }
+    footer small { display: block; color: #777; margin-top: 1.5rem; }
+
+    @media (max-width: 700px) {
+      nav { display: none; }
+      .hero { height: 260px; }
+      h1 { font-size: 1.7rem; }
+      .article-wrap { grid-template-columns: 1fr; }
+      .share { position: static; display: flex; gap: 0.5rem; align-items: center; }
+      .share a { margin: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="logo" href="#"><span class="logo-mark"></span>Gospel Patrons UK</a>
+    <nav>
+      <a href="#">Articles</a>
+      <a href="#">Events</a>
+      <a href="#">Newsletter</a>
+      <a href="#">About</a>
+    </nav>
+  </header>
+
+  <div class="hero" role="img" aria-label="Article illustration"></div>
+
+  <section class="title-band">
+    <div class="tags"><span class="dot">Article</span><span><b>Topic</b><a href="#">Generosity</a></span></div>
+    <h1>Where Is Your Hope? Reflections on Generosity, Wealth and Eternal Investment</h1>
+  </section>
+
+  <div class="article-wrap">
+    <aside class="share">
+      Share
+      <a href="#" aria-label="Share on Facebook">f</a>
+      <a href="#" aria-label="Share on X">𝕏</a>
+      <a href="#" aria-label="Share by email">✉</a>
+    </aside>
+
+    <article>
+      <div class="author">
+        <div class="avatar"></div>
+        <p><strong>Written by Ed Tulloch</strong><br>Hope City Church Edinburgh</p>
+      </div>
+
+      <p>What comes to mind when you hear the word <em>generosity</em>?</p>
+      <p>For some of us, it evokes admiration. For others, perhaps guilt. Conversations about money in Christian circles can quickly become uncomfortable. We brace ourselves for a challenge about giving or worry that we're about to be made to feel guilty for not doing enough.</p>
+      <p>Part of the reason may be a familiar phrase often attributed to the Bible:</p>
+      <p>"Money is the root of all evil."</p>
+      <p>The problem is that the Bible doesn't actually say that.</p>
+      <p>The Apostle Paul writes:</p>
+      <blockquote>"<em>For the love of money is a root of all kinds of evil.</em>" (1 Timothy 6:10)</blockquote>
+      <p>That distinction matters greatly.</p>
+
+      <h2>More Wealth Than We Realise</h2>
+      <p>Whatever our individual circumstances, most people reading this article likely enjoy a level of material comfort that would have seemed extraordinary to most people throughout history. Running water, reliable electricity, modern healthcare, education, technology, holidays, savings, pensions and investments are remarkable privileges.</p>
+      <p>Yet wealth has a way of disappearing from our field of vision. We compare ourselves not with previous generations or the global majority, but with people who have more than we do.</p>
+      <p>Paul's concern, however, is not primarily the amount of money we possess. His concern is what our hearts do with it.</p>
+      <p>The real question is not: "How much money do I have?" but: "Do I love money more than God?”. It’s about our hearts. And Paul gives a direct instruction to wealthy Christians a bit later in the chapter. Two diagnostic questions arise from his discussion:</p>
+
+      <h2>The First Diagnostic Question: Where Is Your Hope?</h2>
+      <blockquote>"<em>Command those who are rich in this present world not to be arrogant nor to put their hope in wealth, which is so uncertain, but to put their hope in God, who richly provides us with everything for our enjoyment.</em> (1 Timothy 6:17)</blockquote>
+      <p>He highlights two particular dangers.</p>
+
+      <h3>False Pride</h3>
+      <p>Wealth can create a powerful illusion of self-sufficiency.</p>
+      <p>It's easy to look at a successful career, a healthy savings account, a pension pot or property portfolio and conclude that we've got where we are largely through our own efforts.</p>
+      <p>Of course, hard work matters. Wise decisions matter. But Christians recognise that every opportunity, ability and circumstance ultimately comes from God. As Paul reminds us, God is the one "<em>who richly provides us with everything for our enjoyment</em>."</p>
+      <p>The temptation of wealth is not simply possessing it. It is rewriting the story of our lives so that God's generosity disappears from view.</p>
+
+      <h3>False Security</h3>
+      <p>Closely related to pride is the temptation to trust wealth. Money promises security. Savings provide reassurance. Investments appear dependable. Yet money is inherently fragile. Markets fluctuate. Businesses fail. Health declines. Circumstances change. None of us can purchase another day of life.</p>
+      <p>The world's wealthiest people face exactly the same certainty as everyone else: one day they will stand before God with none of their earthly possessions.</p>
+      <p>This is why Paul describes wealth as "so uncertain." The issue is not financial planning. The issue is misplaced confidence.</p>
+      <p>John D. Rockefeller was once asked, "How much money is enough?" His famous response was: "Just a little bit more." Many of us recognise something of ourselves in that answer.</p>
+
+      <h3>The Problem Isn't Wealth</h3>
+      <p>At this point, we might conclude that the solution is simply to avoid wealth altogether.</p>
+      <p>But Paul won't allow that conclusion. Earlier in the same chapter, he warns about people who crave wealth and pursue it obsessively. The problem is not having money. The problem is loving money.</p>
+      <p>The wealthy are not uniquely vulnerable to this temptation. The poor can equally place their hope in money, imagining that financial gain will finally deliver contentment, significance or security. The issue is fundamentally one of the heart.</p>
+
+      <h2>The Second Diagnostic Question: Where Are Your Riches?</h2>
+      <p>Paul's response is not merely negative. He doesn't simply warn us about the dangers of wealth. He gives us a positive vision for how Christians should use the resources entrusted to them.</p>
+      <p>He writes:</p>
+      <blockquote>"<em>Command them to do good, to be rich in good deeds, and to be generous and willing to share.</em>" (1 Timothy 6:18)</blockquote>
+
+      <h3>Good Deeds</h3>
+      <p>Notice what comes first. Be rich in <strong>good deeds</strong>.</p>
+      <p>Paul's vision of generosity is bigger than charitable donations. Financial generosity matters, but it is not the whole picture. God entrusts his people with more than money.</p>
+      <p class="stack">He gives experience.<br>He gives expertise.<br>He gives influence.<br>He gives leadership ability.<br>He gives networks, opportunities and practical skills.</p>
+      <p>For many Christians, one of the most significant resources they possess is not found in a bank account but in decades of accumulated knowledge and professional experience.</p>
+      <ul>
+        <li>Churches, charities and gospel ministries are constantly strengthened by Christians who use their professional skills for kingdom purposes.</li>
+        <li>Communication specialists help organisations communicate clearly.</li>
+        <li>Finance professionals strengthen governance and accountability.</li>
+        <li>Lawyers provide legal expertise.</li>
+        <li>Business leaders bring strategic direction.</li>
+        <li>Entrepreneurs contribute creativity and innovation.</li>
+        <li>Photographers, videographers, engineers, software developers, project managers and countless others offer their skills in service of the gospel.</li>
+      </ul>
+      <p>Much of the work of Christian ministry simply would not happen, or would happen far less effectively, without believers who willingly share their time, talents and treasure.</p>
+      <p>The question is not merely: "How much should I give?" The question is: "What has God entrusted to me, and how might I use it for his kingdom?"</p>
+
+      <h3>Good Investment</h3>
+      <p>There is a cost to generosity.</p>
+      <p class="stack">Time given away cannot be recovered.<br>Money given away cannot be spent elsewhere.<br>Serving others often means inconvenience, sacrifice and limitation.</p>
+      <p>Yet Paul offers a striking perspective:</p>
+      <blockquote>"<em>In this way they will lay up treasure for themselves as a firm foundation for the coming age, so that they may take hold of the life that is truly life.</em>" (1 Timothy 6:19)</blockquote>
+      <p>The Christian life is not about earning salvation. Paul is clear elsewhere that we are saved by God's grace through Christ (1 Timothy 1:15-16). But generosity is one of the ways Christians demonstrate that they genuinely believe God's promises, and take hold of the full life he offers. Every act of gospel-centred generosity is an investment in something that cannot be lost.</p>
+
+      <h3>A Forgotten Gospel Patron</h3>
+      <p>Five hundred years ago, God used William Tyndale to produce the first printed English New Testament, making Scripture accessible to ordinary people across Britain. Tyndale is rightly remembered for his courage and sacrifice.</p>
+      <p>Far fewer people recognise the name Humphrey Monmouth. A successful cloth merchant, Monmouth supported, housed, advised and enabled Tyndale and his work.</p>
+      <p>One stood in the spotlight of history. The other worked largely behind the scenes.</p>
+      <p>Yet both played vital roles in a gospel movement whose effects continue to be felt half a millennium later. Monmouth understood that wealth was not primarily something to be accumulated. It was something to be deployed for God's purposes.</p>
+      <p>He invested in eternity.</p>
+
+      <h3>What Will Slip Through Your Hands?</h3>
+      <p>The reformer Martin Luther once remarked: "God divided the hand into fingers so that money would slip through."</p>
+      <p>Whether or not we choose generosity, our resources will eventually leave our possession.</p>
+      <p>The only question is what we will do with them while they remain entrusted to us.</p>
+      <p>Paul's concern is not primarily how much money we have. His concern is where our hope is. And the evidence of where our hope is can often be seen in what we do with the resources God has been pleased to give us.</p>
+      <p>One day every one of us will stand before Christ stripped of bank accounts, portfolios, possessions and status. On that day, the question will not be how much we accumulated.</p>
+      <p>It will be whether we used our time, talents and treasure in service of a kingdom that lasts forever. That is what it looks like to love God rather than money. And that call is addressed to the rich and the poor alike.</p>
+    </article>
+  </div>
+
+  <section class="related">
+    <div class="inner">
+      <h2>Related Articles</h2>
+      <div class="cards">
+        <a class="card" href="#"><div class="img" style="background:#c02b0a"></div><div class="txt"><div class="lbl">Article · Generosity</div><h3>Is Generosity Dying Out in the UK Church?</h3></div></a>
+        <a class="card" href="#"><div class="img" style="background:#3ba5e2"></div><div class="txt"><div class="lbl">Article · Stewardship</div><h3>Five Questions to Ask Before You Give</h3></div></a>
+        <a class="card" href="#"><div class="img" style="background:#5273a3"></div><div class="txt"><div class="lbl">Article · History</div><h3>The Patrons Behind the Great Awakening</h3></div></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="newsletter">
+    <h2>Fresh inspiration from Gospel Patrons UK</h2>
+    <p>Get new articles and resources on generosity straight to your inbox.</p>
+    <form onsubmit="event.preventDefault(); this.querySelector('button').textContent='Thanks!';">
+      <input type="email" placeholder="Email address" required>
+      <button type="submit">Sign Me Up</button>
+    </form>
+    <div class="note">Demo only: this form isn't connected to a mailing list yet.</div>
+  </section>
+
+  <footer>
+    <div class="tagline">Behind great movements of God are generous leaders who advance the gospel.</div>
+    <div class="links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a><a href="#">Give</a></div>
+    <small>© 2026 Gospel Patrons UK · Mock-up for internal review</small>
+  </footer>
+
+</body>
+</html>
